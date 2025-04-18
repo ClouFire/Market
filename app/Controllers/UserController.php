@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Controllers;
+use App\Models\User;
+
+class UserController extends BaseController
+{
+
+    public function register()
+    {
+        return view("user/register", ["title" => "Register page",]);
+    }
+
+    public function store()
+    {
+        $model = new User();
+        $model->loadData();
+        if (!$model->validate())
+        {
+            session()->setFlash("error", "Validation error");
+            session()->set('form_errors', $model->getErrors());
+            session()->set('form_data', $model->attrs);
+        }
+        else
+        {
+            session()->setFlash("success", "Successfull validation");
+        }
+        response()->redirect("/register");
+    }
+
+    public function login()
+    {
+        return view("user/login", ["title" => "Login page",]);
+    }
+}
