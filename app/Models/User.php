@@ -6,13 +6,23 @@ use PHPFramework\Model;
 
 class User extends Model
 {
-    protected array $fillable = ['name', 'email', 'password', 'confirmPassword'];
+    protected string $table = 'users';
+    protected bool $timestamps = true;
+    protected array $loaded = ['name', 'email', 'password', 'confirmPassword',];
+
+    protected array $fillable = ['name', 'email', 'password',];
 
     protected array $rules = [
         'required' => ['name', 'email', 'password', 'confirmPassword'],
         'email' => ['email'],
         'lengthMin' => [['password', 6]],
         'equals' => [['password', 'confirmPassword']],
+        'uniqueName' => [
+            ['name', 'users,name',],
+    ],
+        'uniqueEmail' => [
+            ['email', 'users,email',],
+    ],
     ];
-
 }
+

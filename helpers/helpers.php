@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\VarDumper\Cloner\Data;
+
 function app(): \PHPFramework\Application
 {
     return \PHPFramework\Application::$app;
@@ -34,6 +36,11 @@ function abort($error = '', $code = 404)
 function baseUrl($path = ''): string
 {
     return PATH . $path;
+}
+
+function db(): \PHPFramework\Database
+{
+    return app()->db;
 }
 
 function session(): \PHPFramework\Session
@@ -79,7 +86,19 @@ function h($str): string
     return htmlspecialchars($str, ENT_QUOTES);
 }
 
+function getValidationClass($field): string
+{
+    $errors = session()->get('form_errors');
+    if(empty($errors)) return '';
+    return isset($errors[$field]) ? 'is-invalid' : 'is-valid';
+}
+
 function getCsrfField(): string
 {
     return '<input type="hidden" name="csrf_token" value="' . session()->get('csrf_token') .'">';
+}
+
+function isAuth(): bool
+{
+    return false;
 }

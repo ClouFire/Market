@@ -37,7 +37,7 @@ class Router
             'path'=> "/$path",
             'callback'=> $callback,
             'method'=> $method,
-            'middleware' => null,
+            'middleware' => [],
             'checkCsrfToken' => true,
         ];
 
@@ -107,6 +107,18 @@ class Router
                     }
                 }
 
+                if($route['middleware'])
+                {
+                    foreach($route['middleware'] as $middleware)
+                    {
+                        $middleware = MIDDLEWARE[$middleware] ?? false;
+                        if($middleware)
+                        {
+                            (new $middleware)->handle();
+                        }
+                    }
+                }
+
                 foreach($matches as $key => $match)
                 {
                     if(is_string($key))
@@ -122,12 +134,18 @@ class Router
 
     public function checkCSRF()
     {
-        return request()->post('csrf_token') && (session()->get('csrf_token') == request()->post('csrf_token'));
+        return request()->post('csrf_token') && request()->post('csrf_token') == (session()->get('csrf_token'));
     }
 
     public function disableCsrfToken(): self
     {
         $this->routes[array_key_last($this->routes)]['checkCsrfToken'] = false;
+        return $this;
+    }
+
+    public function middleware(array $middleware): self
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $middleware;
         return $this;
     }
 }

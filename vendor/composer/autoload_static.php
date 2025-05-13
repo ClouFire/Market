@@ -13,6 +13,10 @@ class ComposerStaticInitdbd40ba981f3238a715feb54d59e10e8
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+        ),
         'V' => 
         array (
             'Valitron\\' => 9,
@@ -25,6 +29,7 @@ class ComposerStaticInitdbd40ba981f3238a715feb54d59e10e8
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PHPFramework\\' => 13,
         ),
         'A' => 
@@ -34,6 +39,10 @@ class ComposerStaticInitdbd40ba981f3238a715feb54d59e10e8
     );
 
     public static $prefixDirsPsr4 = array (
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
         'Valitron\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/valitron/src/Valitron',
@@ -49,6 +58,10 @@ class ComposerStaticInitdbd40ba981f3238a715feb54d59e10e8
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
         ),
         'PHPFramework\\' => 
         array (

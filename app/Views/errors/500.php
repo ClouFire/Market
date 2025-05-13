@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>500 - aboba error</title>
+    <title>500 - Server error</title>
 </head>
 <body>
-    <h1>ERROR 500 ABOBA</h1>
+    <h1>500 - Server error</h1>
     <?= $error ?? ''; ?>
 </body>
 </html>

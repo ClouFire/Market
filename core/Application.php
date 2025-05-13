@@ -2,6 +2,8 @@
 
 namespace PHPFramework;
 
+use function PHPSTORM_META\type;
+
 class Application
 {
 
@@ -11,6 +13,7 @@ class Application
     public Router $router;
     public View $view;
     public Session $session;
+    public Database $db;
     public static Application $app;
 
     public function __construct()
@@ -22,6 +25,7 @@ class Application
         $this->router = new Router($this->request, $this->response);
         $this->view = new View(LAYOUT);
         $this->session = new Session();
+        $this->db = Database::getInstance();
         $this->writeCsrfToken();
     }
 
