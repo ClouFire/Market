@@ -84,10 +84,9 @@ class Router
         {
             if(preg_match("#^{$route['path']}$#", "/{$path}", $matches)
             &&
-            in_array($this->request->getMethod(), $route["method"])
-            )
+            in_array($this->request->getMethod(), $route["method"]))
             {
-
+            
                 if(request()->isPost())
                 {
                     if($route['checkCsrfToken'] && !$this->checkCSRF())

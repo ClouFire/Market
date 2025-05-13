@@ -9,7 +9,7 @@ const APP = ROOT . '/app';
 const CORE = ROOT . '/core';
 const VIEWS = APP . '/Views';
 const LAYOUT = 'default';
-const PATH = '/api_project';
+const PATH = '/MVC';
 const ERROR_LOGS = ROOT . '/tmp/error.log';
 const WWW = ROOT . '/public';
 

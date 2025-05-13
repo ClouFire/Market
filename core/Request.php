@@ -29,7 +29,7 @@ class Request
         if($this->uri)
         {
             $params = explode('?', $this->uri);
-            $params[0] = str_replace('api_project/', '', $params[0]);
+            $params[0] = str_replace(str_replace('/', '' , PATH) . '/', '', $params[0]);
             return trim($params[0], '/');
         }
         return "";

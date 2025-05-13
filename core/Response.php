@@ -14,11 +14,11 @@ class Response
     {
         if($url) 
         {
-            $redirect = '/api_project' . $url;       
+            $redirect = PATH . $url;       
         }
         else
         {
-            $redirect = $_SERVER['HTTP_REFERER'] ?? '/api_project';
+            $redirect = $_SERVER['HTTP_REFERER'] ?? PATH;
         }
         header("Location: $redirect");
         die();
