@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\User;
 use PDOException;
+use PHPFramework\Pagination;
 
 class UserController extends BaseController
 {
@@ -52,5 +53,17 @@ class UserController extends BaseController
     public function login()
     {
         return view("user/login", ["title" => "Login page",]);
+    }
+
+    public function index()
+    {
+        $pagination = new Pagination();
+        $pagination->getPages();
+        $users = db()->findAll('users');
+
+        return view('user/index', [
+            'title' => 'Index page',
+            'users' => $users,
+        ]);
     }
 }

@@ -71,9 +71,9 @@ class Request
         return false;
     }
 
-    public function get($data): bool 
+    public function get($data, $default = 0): bool 
     {
         if(isset($_GET[$data])) return $_GET[$data];
-        return false;
+        return $default;
     }
 }
