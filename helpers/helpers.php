@@ -21,6 +21,7 @@ function view($view = '', $data = [], $layout = ''): string|\PHPFramework\View
 {
     if($view)
     {
+        if($page = cache()->get($view)) return $page; 
         return app()->view->render($view, $data, $layout);
     }
     return app()->view;
@@ -48,6 +49,10 @@ function session(): \PHPFramework\Session
     return app()->session;
 }
 
+function cache(): \PHPFramework\Cache
+{
+    return app()->cache;
+}
 function get_alerts(): void
 {
     if (!empty($_SESSION['flash']))
@@ -102,3 +107,5 @@ function isAuth(): bool
 {
     return false;
 }
+
+

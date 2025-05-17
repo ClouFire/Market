@@ -136,4 +136,42 @@ class Database
     {
         return $this->connection->rollBack();
     }
+
+    public function insertCache($key, $data, $created_at ,$expires_at)
+    {
+        $this->execute("INSERT INTO cache (`cache_key`,`data`,`created_at`,`expires_at`) VALUES (?, ?, ?, ?)", ["{$key}", "{$data}", "{$created_at}", "{$expires_at}"]);
+    }
+
+    public function deleteCache($key)
+    {
+        $this->execute("DELETE FROM cache WHERE `cache_key` = '{$key}'");
+    }
+
+    public function insert(string $table, array $keys = ['id',], array $values = ['null',]): bool|string
+    {
+        foreach($keys as $k => $v)
+        {
+            $keys[$k] = "`{$v}`";
+        }
+        $keys = join(',' ,$keys);
+            
+        foreach($values as $k => $v)
+        {
+            $values[$k] = ":{$v}";
+        }
+        $values = join(', ', $values);
+
+        $this->execute("INSERT INTO {$table} ({$keys}) VALUES ({$values})");
+        return $this->getInsertId();
+    }
+
+    public function delete(string $table, string $value, string $key = 'id')
+    {
+       
+        $key = "`{$key}`";
+
+
+        $this->execute("DELETE FROM {$table} WHERE ({$key}) = ({$value})");
+    }    
+
 }

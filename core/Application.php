@@ -13,8 +13,10 @@ class Application
     public Router $router;
     public View $view;
     public Session $session;
+    public Cache $cache;
     public Database $db;
     public static Application $app;
+    protected array $container;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class Application
         $this->router = new Router($this->request, $this->response);
         $this->view = new View(LAYOUT);
         $this->session = new Session();
+        $this->cache = new Cache();
         $this->db = Database::getInstance();
         $this->writeCsrfToken();
     }
@@ -40,6 +43,16 @@ class Application
         {
             session()->set('csrf_token', bin2hex(random_bytes(32)));
         }
+    }
+
+    public function set($key, $value): void
+    {
+        $this->container[$key] = $value;
+    }
+
+    public function get($key, $default = null)
+    {
+        return $this->container[$key] ?? $default;
     }
 
 }
