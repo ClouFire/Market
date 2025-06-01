@@ -65,13 +65,13 @@ class Request
         return $data;
     }
 
-    public function post($data): bool 
+    public function post($data) 
     {
         if(isset($_POST[$data])) return $_POST[$data];
         return false;
     }
 
-    public function get($data, $default = 0): bool 
+    public function get($data, $default = 0) 
     {
         if(isset($_GET[$data])) return $_GET[$data];
         return $default;

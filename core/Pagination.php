@@ -10,11 +10,11 @@ class Pagination
     protected string $uri;
 
     public function __construct(
-        protected int $perPage = 1,
         protected int $totalRecords = 1,
-        protected int $midSize = 2,
-        protected int $maxPages = 7,
-        protected string $tpl = 'pagination/base',
+        protected int $perPage = PAGINATION_SETTINGS['perPage'],
+        protected int $midSize = PAGINATION_SETTINGS['midSize '],
+        protected int $maxPages = PAGINATION_SETTINGS['maxPages'],
+        protected string $tpl = PAGINATION_SETTINGS['tpl'],
         )
     {
         $this->countPages = $this->getCountPages();
@@ -45,7 +45,7 @@ class Pagination
     {
         $url = request()->uri;
         $url = parse_url($url);
-        $uri = $url['path'];
+        $uri = str_replace('MVC/', '', $url['path']);
         if(!empty($url['query']) && $url['query'] != '&')
         {   
             parse_str($url['query'], $params);
@@ -77,7 +77,8 @@ class Pagination
         $forward = '';
         $start_page = '';
         $last_page = '';
-        $pages = ['left' => [], 'right' => []];
+        $pages_left = [];
+        $pages_right = [];
         $current_page = $this->currentPage;
 
         if($this->currentPage > 1)
@@ -104,7 +105,7 @@ class Pagination
         {
             if($this->currentPage - $i > 0)
             {
-                $pages['left'] = [
+                $pages_left[] = [
                     'link' => $this->getLink($this->currentPage - $i),
                     'number' => $this->currentPage - $i,
                 ];
@@ -115,19 +116,20 @@ class Pagination
         {
             if($this->currentPage + $i <= $this->countPages)
             {
-                $pages['right'] = [
+                $pages_right[] = [
                     'link' => $this->getLink($this->currentPage + $i),
                     'number' => $this->currentPage + $i,
                 ];
             }   
         }
+        return view()->renderPartial($this->tpl, compact('back', 'forward', 'start_page', 'last_page', 'pages_left', 'pages_right', 'current_page'));
     }
 
     protected function getLink($page): string
     {
         if($page == 1)
         {
-            return rtrim($this->uri, '?&');
+            return rtrim($this->uri, '#?&');
         }
         if(str_contains($this->uri, '&') or str_contains($this->uri, '?'))
         {
@@ -139,6 +141,11 @@ class Pagination
         }
 
         
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPages();
     }
 
 }

@@ -25,6 +25,8 @@ class CachePage
         $key = request()->uri;
         $key = explode('/', $key);
         $key = $key[count($key)-1];
+        $key = explode('?', $key);
+        $key = $key[0];
         
         return $key;
     }

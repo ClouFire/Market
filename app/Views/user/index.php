@@ -4,4 +4,5 @@
         <?= $user['name']; ?><br>
     <?php endforeach; ?>
 
+    <?= $pagination; ?>
 </div>

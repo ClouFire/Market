@@ -174,4 +174,14 @@ class Database
         $this->execute("DELETE FROM {$table} WHERE ({$key}) = ({$value})");
     }    
 
+    public function countAll($table)
+    {
+        return $this->execute("SELECT count(*) FROM {$table}")->getColumn();
+    }
+
+    public function findRange($table, $limit, $offset)
+    {
+        $this->execute("SELECT * FROM {$table} LIMIT {$limit} OFFSET {$offset}");
+        return $this->statement->fetchAll();
+    }
 }

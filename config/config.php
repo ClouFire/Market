@@ -24,3 +24,10 @@ const DB_SETTINGS = [
         PDO::ATTR_EMULATE_PREPARES => false,
     ]
 ];
+
+const PAGINATION_SETTINGS = [
+        'perPage' => 2,
+        'midSize '=> 2,
+        'maxPages' => 7,
+        'tpl' => 'pagination/base',
+];
