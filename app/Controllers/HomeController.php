@@ -14,4 +14,5 @@ class HomeController extends BaseController
     {
         return view('dashboard', ['title' => 'Dashboard page']);
     }
+
 }

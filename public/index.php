@@ -1,10 +1,10 @@
 <?php
 
 use PHPFramework\Application;
-use Symfony\Component\VarDumper\Cloner\Data;
 use Whoops\Handler\CallbackHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
+
 
 ini_set('desplay_errors', 1);
 error_reporting(E_ALL);

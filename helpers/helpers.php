@@ -64,6 +64,7 @@ function get_alerts(): void
     }    
 }
 
+
 function get_errors($field): string
 {
     $output = '';

@@ -2,8 +2,6 @@
 
 namespace PHPFramework;
 
-use function PHPSTORM_META\type;
-
 class Application
 {
 

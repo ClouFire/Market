@@ -9,12 +9,12 @@ const APP = ROOT . '/app';
 const CORE = ROOT . '/core';
 const VIEWS = APP . '/Views';
 const LAYOUT = 'default';
-const PATH = '/MVC';
+const PATH = '/Market';
 const ERROR_LOGS = ROOT . '/tmp/error.log';
 const WWW = ROOT . '/public';
 
 const DB_SETTINGS = [
-    "name" => "framework",
+    "name" => "market",
     "host" => "localhost",
     "pass" => "",
     "login" => "root",

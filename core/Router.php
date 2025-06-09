@@ -1,9 +1,6 @@
 <?php
 
 namespace PHPFramework;
-
-use LDAP\Result;
-
 class Router
 {
     protected Request $request;

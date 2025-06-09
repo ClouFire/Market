@@ -18,3 +18,8 @@ Line: 40
 File: /opt/lampp/htdocs/api_project/app/Views/user/register.php
 Line: 40
 ++++++++++++++++++++++++++++
+[2025-06-09 20:08:13] DB connetion error: SQLSTATE[HY000] [1049] Unknown database 'framework'
+[2025-06-09 20:09:05] DB connetion error: SQLSTATE[HY000] [1049] Unknown database 'framework'
+[2025-06-09 20:11:02] DB connetion error: SQLSTATE[HY000] [1049] Unknown database 'framework'
+[2025-06-09 20:13:04] DB connetion error: SQLSTATE[HY000] [1049] Unknown database 'framework'
+[2025-06-09 20:15:55] DB connetion error: SQLSTATE[HY000] [1049] Unknown database 'framework'
