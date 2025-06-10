@@ -15,4 +15,15 @@ class HomeController extends BaseController
         return view('dashboard', ['title' => 'Dashboard page']);
     }
 
+    public function subscribe()
+    {
+        session()->setFlash('content', 'U`ve successfully signed up for mailing');
+        response()->redirect('/');
+    }
+
+    public function shop()
+    {
+        return view('shop', ['title' => 'Shop']);
+    }
+
 }

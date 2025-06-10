@@ -1,7 +1,5 @@
 <?php
 
-use Symfony\Component\VarDumper\Cloner\Data;
-
 function app(): \PHPFramework\Application
 {
     return \PHPFramework\Application::$app;
@@ -106,7 +104,7 @@ function getCsrfField(): string
 
 function isAuth(): bool
 {
-    return false;
+    return true;
 }
 
 

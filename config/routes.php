@@ -17,6 +17,9 @@ $app->router->post('register', [UserController::class,'store']);
 $app->router->get('login', [UserController::class,'login']);
 $app->router->get('dashboard', [HomeController::class, 'dashboard'])->middleware(["cache"]);
 $app->router->get('users', [UserController::class, 'index']);
+$app->router->post('subscribe', [HomeController::class, 'subscribe']);
+$app->router->get('cart', [UserController::class, 'cart'])->middleware(["auth"]);
+$app->router->get('shop', [HomeController::class, 'shop']);
 
 /* $app->router->get('/post/(?P<slug>[a-z0-9-]+)/?', function() {
     return '<p>Some post</p>';

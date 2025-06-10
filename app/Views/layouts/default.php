@@ -77,13 +77,19 @@
                 </div>
 
                 <div class="block-7">
-                    <form action="#" method="post">
+                    <form action="<?= baseUrl('/subscribe')?>" method="post">
+                        <?= getCsrfField(); ?>
                         <label for="email_subscribe" class="footer-heading">Subscribe</label>
                         <div class="form-group">
-                            <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                            <input type="email" class="form-control py-4 <?= getValidationClass('email'); ?>" id="email_subscribe" required placeholder="Email" value="<?= old('email'); ?>">
+                            <?= get_errors('email');?>
                             <input type="submit" class="btn btn-sm btn-primary" value="Send">
                         </div>
                     </form>
+                    <?php
+                    session()->remove('form_errors');
+                    session()->remove('form_data');
+                    ?>
                 </div>
             </div>
         </div>

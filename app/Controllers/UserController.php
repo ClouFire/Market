@@ -69,4 +69,9 @@ class UserController extends BaseController
             'pagination' => $pagination,
         ]);
     }
+
+    public function cart(): string
+    {
+        return view("user/cart", ["title" => "Cart"]);
+    }
 }

@@ -13,6 +13,7 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/../config/config.php';
 require_once ROOT . '/vendor/autoload.php';
 require_once HELPERS . '/helpers.php';
+require_once HELPERS . '/HtmlHelpers.php';
 
 $whoops = new Run();
 if(DEBUG)
