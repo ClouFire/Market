@@ -1,54 +1,28 @@
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <?php if(!empty($start_page)) : ?>
-    <li class="page-item">
-      <a class="page-link" href="<?= $start_page; ?>" aria-label="Start page">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <?php endif; ?>
-    
-    <?php if(!empty($back)) : ?>
-      <li class="page-item">
-        <a class="page-link" href="<?= $back; ?>" aria-label="Previous page">
-          <span aria-hidden="true">&lt;</span>
-        </a>
-      </li>
-    <?php endif; ?> 
-    <?php if(!empty($pages_left)) : ?>
-      <?php foreach($pages_left as $page_left) :?>
-        <li class="page-item"><a class="page-link" href="<?= $page_left['link']; ?>">
-          <?= $page_left['number']; ?>
-          </a>
-        </li>
-      <?php endforeach; ?>
-    <?php endif; ?>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <div class="site-block-27">
+            <ul>
+                <?php if(!empty($back)) : ?>
+                    <li><a href="<?= $back; ?>">&lt;</a></li>
+                <?php endif; ?>
+                <?php if(!empty($pages_left)) : ?>
+                    <?php foreach($pages_left as $page_left) :?>
+                        <li><a href="<?= $page_left['link']; ?>"><?= $page_left['number']; ?></a></li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
-    <li class="page-item active"><a class="page-link"><?= $current_page; ?></a></li>
+                <li class="active"><span><?= $current_page; ?></span></li>
 
-    
-    <?php if(!empty($pages_right)) : ?>
-      <?php foreach($pages_right as $page_right) :?>
-        <li class="page-item"><a class="page-link" href="<?= $page_right['link']; ?>">
-          <?= $page_right['number']; ?>
-        </a>
-      </li>
-      <?php endforeach; ?>
-      
-      <?php if(!empty($forward)) : ?>
-        <li class="page-item">
-          <a class="page-link" href="<?= $forward; ?>" aria-label="Previous page">
-            <span aria-hidden="true">&gt;</span>
-          </a>
-        </li>
-      <?php endif; ?> 
-    <?php endif; ?>
-    <?php if(!empty($last_page)) : ?>
-    <li class="page-item">
-      <a class="page-link" href="<?= $last_page; ?>" aria-label="Last page">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-    <?php endif; ?>
-</ul>
-</nav>
+                <?php if(!empty($pages_right)) : ?>
+                    <?php foreach($pages_right as $page_right) :?>
+                        <li><a href="<?= $page_right['link']; ?>"><?= $page_right['number']; ?></a></li>
+                    <?php endforeach; ?>
+
+                    <?php if(!empty($forward)) : ?>
+                        <li><a href="<?= $forward; ?>">&gt;</a></li>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</div>

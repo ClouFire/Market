@@ -41,12 +41,15 @@
                 <a href="<?= baseUrl('/search'); ?>" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
                 <a href="<?= baseUrl('/liked'); ?>" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
                 <a href="<?= baseUrl('/cart'); ?>" class="icons-btn d-inline-block bag">
+
                     <span class="icon-shopping-bag"></span>
                     <span class="number">2</span>
 <!--                    чуть выше (вместо 2) должен быть вывод числа покупок в корзине, можно через db()->countAll
                         или не отображать ничего, если count = 0
 -->
                 </a>
+                <a href="<?= baseUrl('/register') ?>">Sign up | </a>
+                <a href="<?= baseUrl('/login') ?>">Sign in</a>
                 <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
             </div>
         </div>

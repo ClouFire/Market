@@ -1,7 +1,4 @@
-<div class="container">
-    <h1><?= $title ?? ''; ?></h1>
-
-    <div class="row">
+ <div class="row">
         <div class="col-md-6 offset-md-3">
             <form action="<?= baseUrl('/register') ?>" method="post">
 

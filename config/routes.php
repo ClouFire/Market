@@ -15,7 +15,7 @@ $app->router->get(str_replace('/', '', PATH), [HomeController::class,'getHomePag
 $app->router->get('register', [UserController::class,'register']);
 $app->router->post('register', [UserController::class,'store']);
 $app->router->get('login', [UserController::class,'login']);
-$app->router->get('dashboard', [HomeController::class, 'dashboard'])->middleware(["cache"]);
+$app->router->get('dashboard', [HomeController::class, 'dashboard']);
 $app->router->get('users', [UserController::class, 'index']);
 $app->router->post('subscribe', [HomeController::class, 'subscribe']);
 $app->router->get('cart', [UserController::class, 'cart'])->middleware(["auth"]);

@@ -17,26 +17,27 @@
         </div>
     </div>
 
-    <div class="site-section">
+<div class="site-section">
         <div class="container">
+
             <div class="title-section mb-5">
                 <h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2>
             </div>
             <div class="row align-items-stretch">
                 <div class="col-lg-8">
                     <div class="product-item sm-height full-height bg-gray">
-                        <a href="#" class="product-category">Women <span><?= countItems('Women') ?> <?= countItems('Women') > 1 ? 'items' : 'item' ?></span></a>
+                        <a href="#" class="product-category">Women <span><?= countItems('good_catigories', 'Women') ?> <?= countItems('good_catigories', 'Women') > 1 ? 'items' : 'item' ?></span></a>
                         <img src="<?= baseUrl('/assets/images/model_4.png')?>" alt="Image" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="product-item sm-height bg-gray mb-4">
-                        <a href="#" class="product-category">Men <span><?= countItems('Men') ?> <?= countItems('Men') > 1 ? 'items' : 'item' ?></span></a>
+                        <a href="#" class="product-category">Men <span><?= countItems('good_catigories', 'Men') ?> <?= countItems('good_catigories', 'Men') > 1 ? 'items' : 'item' ?></span></a>
                         <img src="<?= baseUrl('/assets/images/model_5.png')?>" alt="Image" class="img-fluid">
                     </div>
 
                     <div class="product-item sm-height bg-gray">
-                        <a href="#" class="product-category">Shoes <span><?= countItems('Shoes') ?> <?= countItems('Shoes') > 1 ? 'items' : 'item' ?></span></a>
+                        <a href="#" class="product-category">Shoes <span><?= countItems('good_catigories', 'Shoes') ?> <?= countItems('good_catigories', 'Shoes') > 1 ? 'items' : 'item' ?></span></a>
                         <img src="<?= baseUrl('/assets/images/model_6.png')?>" alt="Image" class="img-fluid">
                     </div>
                 </div>
@@ -97,12 +98,3 @@
 
 </div>
 
-<script src="<?= baseUrl('/assets/js/jquery-3.3.1.min.js') ?>"></script>
-<script src="<?= baseUrl('/assets/js/jquery-ui.js') ?>"></script>
-<script src="<?= baseUrl('/assets/js/popper.min.js') ?>"></script>
-<script src="<?= baseUrl('/assets/js/bootstrap.min.js') ?>"></script>
-<script src="<?= baseUrl('/assets/js/owl.carousel.min.js') ?>"></script>
-<script src="<?= baseUrl('/assets/js/jquery.magnific-popup.min.js') ?>"></script>
-<script src="<?= baseUrl('/assets/js/aos.js') ?>"></script>
-
-<script src="<?= baseUrl('/assets/js/main.js') ?>"></script>

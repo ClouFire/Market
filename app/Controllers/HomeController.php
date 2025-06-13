@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use PHPFramework\Pagination;
+
 class HomeController extends BaseController
 {
 
@@ -17,13 +19,31 @@ class HomeController extends BaseController
 
     public function subscribe()
     {
-        session()->setFlash('content', 'U`ve successfully signed up for mailing');
-        response()->redirect('/');
+        $return_url = str_replace('/Market', '', $_POST['return_url']);
+        if(db()->findOne('subscribers', $_POST['email_subscribe']))
+        {
+            db()->insert('subscribers', ['email'], [$_POST['email_subscribe']]);
+            session()->setFlash('content', 'U`ve successfully signed up for mailing');
+        }
+        else
+        {
+            session()->setFlash('error', 'This email is already used');
+        }
+        response()->redirect($return_url);
     }
 
     public function shop()
     {
-        return view('shop', ['title' => 'Shop']);
+        $products_count = db()->countAll('goods');
+        $limit = PAGINATION_SETTINGS['perPage'];
+        $pagination = new Pagination($products_count);
+        $pagination->getPages();
+        $products = db()->findRange('goods', $limit, $pagination->getStart());
+        return view('shop', [
+            'title' => 'Shop',
+            'products' => $products,
+            'pagination' => $pagination,
+            ]);
     }
 
 }

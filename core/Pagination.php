@@ -81,6 +81,7 @@ class Pagination
         $pages_right = [];
         $current_page = $this->currentPage;
 
+
         if($this->currentPage > 1)
         {
             $back = $this->getLink($this->currentPage - 1);

@@ -26,8 +26,8 @@ const DB_SETTINGS = [
 ];
 
 const PAGINATION_SETTINGS = [
-        'perPage' => 2,
-        'midSize '=> 2,
+        'perPage' => 4,
+        'midSize '=> 4,
         'maxPages' => 7,
         'tpl' => 'pagination/base',
 ];

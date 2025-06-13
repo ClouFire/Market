@@ -44,25 +44,21 @@ function getMostRated($amount)
     return $cards;
 }
 
-function countItems($filter)
+function countItems($table, $filter)
 {
-    return db()->execute("SELECT count(*) FROM good_catigories WHERE name = ?", [$filter])->getColumn();
+    return db()->execute("SELECT count(*) FROM $table WHERE name = ?", [$filter])->getColumn();
 }
 
-function getSmallCards()
+function getSmallCards($product)
 {
-    $products = db()->findAll('goods');
-    foreach($products as $product)
-    {
-        $card = '<div class="col-lg-6 col-md-6 item-entry mb-4">' .
-            '<a href="#" class="product-item md-height bg-gray d-block">' .
-            '<img src="'. baseUrl("/assets/{$product['image']}") .'" alt="Image" class="img-fluid"> </a>' .
-            '<h2 class="item-title"><a href="#">' . $product['name'] . '</a></h2>' .
-            '<strong class="item-price">$' . $product['price'] . '.00</strong> </div>';
-    }
+    $card = '<div class="col-lg-6 col-md-6 item-entry mb-4">' .
+        '<a href="#" class="product-item md-height bg-gray d-block">' .
+        '<img src="'. baseUrl("/assets/{$product['image']}") .'" alt="Image" class="img-fluid"> </a>' .
+        '<h2 class="item-title"><a href="#">' . $product['name'] . '</a></h2>' .
+        '<strong class="item-price">$' . $product['price'] . '.00</strong></div>';
+
     return $card;
 }
-
 
 
 

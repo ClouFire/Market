@@ -13,8 +13,7 @@ class Auth
         }
         else
         {
-            session()->setFlash('error', 'Forbidden access');
-            response()->redirect('/login');
+            response()->redirect('/register');
         }
     }
 

@@ -16,18 +16,14 @@
     <title><?= $title ?? '';?></title>
 </head>
 <body>
-     <?php if($page = cache()->get('menu')) : ?>
+     <?php if(!$page = cache()->get('menu')) : ?>
         <?= $page; ?>
     <?php else :?>
-        <?= app()->get('menu'); ?>
+        <?= view()->renderPartial('incs/menu'); ?>
     <?php endif ?>
 
     <?php get_alerts(); ?>
     <?=$this->content;?>
-
-<script src="<?= baseUrl('/assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-</body>
-
 <footer class="site-footer custom-border-top">
     <div class="container">
         <div class="row">
@@ -79,9 +75,10 @@
                 <div class="block-7">
                     <form action="<?= baseUrl('/subscribe')?>" method="post">
                         <?= getCsrfField(); ?>
+                        <input type="hidden" name="return_url" value="<?= $_SERVER['REQUEST_URI'] ?>">
                         <label for="email_subscribe" class="footer-heading">Subscribe</label>
                         <div class="form-group">
-                            <input type="email" class="form-control py-4 <?= getValidationClass('email'); ?>" id="email_subscribe" required placeholder="Email" value="<?= old('email'); ?>">
+                            <input type="email" class="form-control py-4 <?= getValidationClass('email_subscribe'); ?>" name="email_subscribe" id="email_subscribe" required placeholder="Email" value="<?= old("email_subscribe") ?>">
                             <?= get_errors('email');?>
                             <input type="submit" class="btn btn-sm btn-primary" value="Send">
                         </div>
@@ -105,5 +102,16 @@
         </div>
     </div>
 </footer>
+<script src="<?= baseUrl('/assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 
+<script src="<?= baseUrl('/assets/js/jquery-3.3.1.min.js') ?>"></script>
+<script src="<?= baseUrl('/assets/js/jquery-ui.js') ?>"></script>
+<script src="<?= baseUrl('/assets/js/popper.min.js') ?>"></script>
+<script src="<?= baseUrl('/assets/js/bootstrap.min.js') ?>"></script>
+<script src="<?= baseUrl('/assets/js/owl.carousel.min.js') ?>"></script>
+<script src="<?= baseUrl('/assets/js/jquery.magnific-popup.min.js') ?>"></script>
+<script src="<?= baseUrl('/assets/js/aos.js') ?>"></script>
+
+<script src="<?= baseUrl('/assets/js/main.js') ?>"></script>
+</body>
 </html>

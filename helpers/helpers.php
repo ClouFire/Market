@@ -25,7 +25,7 @@ function view($view = '', $data = [], $layout = ''): string|\PHPFramework\View
     return app()->view;
 }
 
-function abort($error = '', $code = 404)
+function abort($error = '', $code = 404): void
 {
     response()->setResponseCode($code);
     echo view("errors/{$code}", ['error'=> $error], false);
@@ -104,7 +104,21 @@ function getCsrfField(): string
 
 function isAuth(): bool
 {
-    return true;
+    return false;
 }
 
+function getBreadcrumbs(): string
+{
+    $html = '<div class="custom-border-bottom py-3"> <div class="container"> <div class="row"> <div class="col-md-12 mb-0">';
+    $breadcrumbs = explode('/', request()->uri);
+    for($i = 0; $i < count($breadcrumbs)-1; $i++)
+    {
+        $html .= '<a href="' . baseUrl("/{$breadcrumbs[$i]}") . '">';
+        if($breadcrumbs[$i] == 'Market') $breadcrumbs[$i] = 'Home';
+        $html .= $breadcrumbs[$i] . '</a> <span class="mx-2 mb-0">/</span>';
+
+    }
+    $html .= '<strong class="text-black">' . $breadcrumbs[count($breadcrumbs)-1] . '</strong></div></div></div></div>';
+    return $html;
+}
 

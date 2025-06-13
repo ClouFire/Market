@@ -157,7 +157,7 @@ class Database
             
         foreach($values as $k => $v)
         {
-            $values[$k] = ":{$v}";
+            $values[$k] = "\"{$v}\"";
         }
         $values = join(', ', $values);
 
