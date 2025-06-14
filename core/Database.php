@@ -190,4 +190,11 @@ class Database
         db()->insert('cart', ['user_id'], [$user_id]);
     }
 
+    public function insertCartItem($cart_id, $good_id, $amount, $user_id, $size)
+    {
+        db()->execute("UPDATE cart SET total = total + 1 WHERE user_id = ?", [$user_id]);
+        db()->insert('cart_item', ['cart_id', 'good_id', 'quantity', 'size'], [$cart_id, $good_id, $amount, $size]);
+        return db()->getInsertId();
+    }
+
 }

@@ -21,10 +21,10 @@ class HomeController extends BaseController
 
     public function subscribe()
     {
-        $return_url = str_replace('/Market', '', $_POST['return_url']);
-        if(db()->findOne('subscribers', $_POST['email_subscribe']))
+        $return_url = str_replace('/Market', '', request()->post('return_url'));
+        if(db()->findOne('subscribers', request()->post('email_subscribe')))
         {
-            db()->insert('subscribers', ['email'], [$_POST['email_subscribe']]);
+            db()->insert('subscribers', ['email'], [request()->post('email_subscribe')]);
             session()->setFlash('content', 'U`ve successfully signed up for mailing');
         }
         else

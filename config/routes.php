@@ -4,8 +4,8 @@
 
 use App\Controllers\HomeController;
 use App\Controllers\UserController;
-use App\Controllers\ProductContorller;
-use App\Models\User;
+use App\Controllers\ProductController;
+use App\Controllers\CartController;
 
 const MIDDLEWARE = [
     'auth' => \PHPFramework\Middleware\Auth::class,
@@ -23,9 +23,9 @@ $app->router->get('users', [UserController::class, 'index']);
 $app->router->post('subscribe', [HomeController::class, 'subscribe']);
 $app->router->get('cart', [UserController::class, 'cart'])->middleware(["auth"]);
 $app->router->get('shop', [HomeController::class, 'shop']);
-$app->router->get('/logout', [UserController::class, 'logout'])->middleware(["auth"]);
-$app->router->get("/product/{$id}", [ProductContorller::class, 'product']);
-$app->router->post('/product', [UserController::class, 'addToCart'])->middleware(['auth']);
+$app->router->get('logout', [UserController::class, 'logout'])->middleware(["auth"]);
+$app->router->get("shop/product", [ProductController::class, 'product']);
+$app->router->post('shop/product', [CartController::class, 'addToCart'])->middleware(['auth']);
 
 /* $app->router->get('/post/(?P<slug>[a-z0-9-]+)/?', function() {
     return '<p>Some post</p>';

@@ -116,11 +116,4 @@ class UserController extends BaseController
         response()->redirect('/');
     }
 
-    public function addToCart()
-    {
-        $return_url = str_replace('/Market', '', $_POST['return_url']);
-        db()->insert();
-        response()->redirect($return_url);
-    }
-
 }

@@ -107,7 +107,7 @@ function isAuth(): bool
     return PHPFramework\Auth::isAuth();
 }
 
-function getBreadcrumbs(): string
+function getBreadcrumbs(array $names = []): string
 {
     $html = '<div class="custom-border-bottom py-3"> <div class="container"> <div class="row"> <div class="col-md-12 mb-0">';
     $breadcrumbs = explode('/', request()->uri);
@@ -115,10 +115,12 @@ function getBreadcrumbs(): string
     {
         $html .= '<a href="' . baseUrl("/{$breadcrumbs[$i]}") . '">';
         if($breadcrumbs[$i] == 'Market') $breadcrumbs[$i] = 'Home';
-        $html .= $breadcrumbs[$i] . '</a> <span class="mx-2 mb-0">/</span>';
+        $html .= ucfirst($breadcrumbs[$i]) . '</a> <span class="mx-2 mb-0">/</span>';
 
     }
-    $html .= '<strong class="text-black">' . $breadcrumbs[count($breadcrumbs)-1] . '</strong></div></div></div></div>';
+    $end = $breadcrumbs[count($breadcrumbs)-1];
+    if(str_contains($end, 'product?id=') and $names) $end = str_replace("product?id={$names['product']['id']}", "{$names['product']['name']}", $end);
+    $html .= '<strong class="text-black">' . ucfirst($end) . '</strong></div></div></div></div>';
     return $html;
 }
 
@@ -131,5 +133,10 @@ function getCartTotal($user_id)
 function getUserId()
 {
     return PHPFramework\Auth::user()['id'];
+}
+
+function getUserCartId()
+{
+    return db()->findOne('cart', getUserId(), 'user_id')['id'];
 }
 

@@ -63,6 +63,22 @@ abstract class Model
         }
     }
 
+    public function getProduct($id)
+    {
+        $data = db()->findOne('goods', $id);
+        foreach($this->loaded as $field)
+        {
+            if(isset($data[$field]))
+            {
+                $this->attrs[$field] = $data[$field];
+            }
+            else
+            {
+                $this->attrs[$field] = '';
+            }
+        }
+    }
+
     public function validate($data = [], $rules = [])
     {
         if(!$data)
