@@ -42,7 +42,9 @@ abstract class Model
         }
         $query = "INSERT INTO {$this->table} ($fields) VALUES ($placeholders)";
         db()->execute($query, $this->attrs);
-        return db()->getInsertId();
+        $id = db()->getInsertId();
+        db()->createCart($id);
+        return $id;
 
     }
     public function loadData(): void

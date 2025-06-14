@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\User;
-use PDOException;
 use PHPFramework\Pagination;
+use PHPFramework\Auth;
 
 class UserController extends BaseController
 {
@@ -40,6 +40,8 @@ class UserController extends BaseController
             if($id = $model->save())
             {
                 session()->setFlash('success', 'Thx for reg');
+                response()->redirect('/login');
+                die;
             }
             else
             {
@@ -53,6 +55,39 @@ class UserController extends BaseController
     public function login()
     {
         return view("user/login", ["title" => "Login page",]);
+    }
+
+    public function auth()
+    {
+        $model = new User();
+        $model->loadData();
+
+        if(!$model->validate($model->attrs, [
+            'required' => ['email', 'password']
+        ]))
+        {
+            session()->setFlash("error", "Validation error");
+            session()->set('form_errors', $model->getErrors());
+            session()->set('form_data', $model->attrs);
+            response()->redirect("/login");
+        }
+        if(Auth::login([
+            'email' => $model->attrs['email'],
+            'password' => $model->attrs['password'],
+        ]))
+        {
+            session()->setFlash('success', 'You are logged in!');
+            response()->redirect("/Market");
+        }
+        else
+        {
+            session()->setFlash("error", "Wrong email or password");
+            session()->set('form_errors', $model->getErrors());
+            session()->set('form_data', $model->attrs);
+            response()->redirect("/login");
+        }
+        die;
+
     }
 
     public function index()
@@ -74,4 +109,18 @@ class UserController extends BaseController
     {
         return view("user/cart", ["title" => "Cart"]);
     }
+
+    public function logout(): void
+    {
+        Auth::logout();
+        response()->redirect('/');
+    }
+
+    public function addToCart()
+    {
+        $return_url = str_replace('/Market', '', $_POST['return_url']);
+        db()->insert();
+        response()->redirect($return_url);
+    }
+
 }

@@ -184,4 +184,10 @@ class Database
         $this->execute("SELECT * FROM {$table} LIMIT {$limit} OFFSET {$offset}");
         return $this->statement->fetchAll();
     }
+
+    public function createCart($user_id)
+    {
+        db()->insert('cart', ['user_id'], [$user_id]);
+    }
+
 }

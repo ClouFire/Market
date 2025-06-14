@@ -17,6 +17,8 @@ class HomeController extends BaseController
         return view('dashboard', ['title' => 'Dashboard page']);
     }
 
+
+
     public function subscribe()
     {
         $return_url = str_replace('/Market', '', $_POST['return_url']);

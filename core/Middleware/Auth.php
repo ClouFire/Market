@@ -7,11 +7,7 @@ class Auth
 
     public function handle(): void
     {
-        if(isAuth()) 
-        {
-
-        }
-        else
+        if(!isAuth())
         {
             response()->redirect('/register');
         }

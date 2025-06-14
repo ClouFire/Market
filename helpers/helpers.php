@@ -104,7 +104,7 @@ function getCsrfField(): string
 
 function isAuth(): bool
 {
-    return false;
+    return PHPFramework\Auth::isAuth();
 }
 
 function getBreadcrumbs(): string
@@ -120,5 +120,16 @@ function getBreadcrumbs(): string
     }
     $html .= '<strong class="text-black">' . $breadcrumbs[count($breadcrumbs)-1] . '</strong></div></div></div></div>';
     return $html;
+}
+
+function getCartTotal($user_id)
+{
+    db()->execute("SELECT total FROM cart WHERE user_id = {$user_id}");
+    return(db()->getStatement()->fetchAll());
+}
+
+function getUserId()
+{
+    return PHPFramework\Auth::user()['id'];
 }
 

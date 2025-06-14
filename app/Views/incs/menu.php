@@ -43,13 +43,19 @@
                 <a href="<?= baseUrl('/cart'); ?>" class="icons-btn d-inline-block bag">
 
                     <span class="icon-shopping-bag"></span>
-                    <span class="number">2</span>
+                    <?php if(isAuth()) : ?>
+                    <span class="number"><?=(getCartTotal(getUserId()))[0]['total'];?></span>
+                    <?php endif; ?>
 <!--                    чуть выше (вместо 2) должен быть вывод числа покупок в корзине, можно через db()->countAll
                         или не отображать ничего, если count = 0
 -->
                 </a>
+                <?php if(!isAuth()) : ?>
                 <a href="<?= baseUrl('/register') ?>">Sign up | </a>
                 <a href="<?= baseUrl('/login') ?>">Sign in</a>
+                <?php else : ?>
+                <a href="<?= baseUrl('/logout') ?>">Logout</a>
+                <?php endif; ?>
                 <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
             </div>
         </div>

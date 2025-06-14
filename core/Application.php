@@ -28,6 +28,7 @@ class Application
         $this->cache = new Cache();
         $this->db = Database::getInstance();
         $this->writeCsrfToken();
+        Auth::setUser();
     }
 
     public function run(): void
