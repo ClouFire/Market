@@ -26,12 +26,6 @@
                             <a href="<?= baseUrl('/shop')?>">Shop</a>
                         </li>
                         <li>
-                            <a href="<?= baseUrl('/catalogue')?>">Catalogue</a>
-                        </li>
-                        <li>
-                            <a href="<?= baseUrl('/new_arrivals')?>">New Arrivals</a>
-                        </li>
-                        <li>
                             <a href="<?= baseUrl('/contact')?>">Contact</a>
                         </li>
                     </ul>

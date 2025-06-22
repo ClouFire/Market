@@ -105,11 +105,6 @@ class UserController extends BaseController
         ]);
     }
 
-    public function cart(): string
-    {
-        return view("user/cart", ["title" => "Cart"]);
-    }
-
     public function logout(): void
     {
         Auth::logout();

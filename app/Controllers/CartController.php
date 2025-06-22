@@ -7,6 +7,12 @@ use App\Models\Cart;
 
 class CartController
 {
+    public function cart($params = [])
+    {
+        $model = new Cart();
+        $model->getUserGoods();
+        return view('cart', ['cart' => $model->attrs, 'title' => 'Cart', 'params' => $params]);
+    }
     public function addToCart()
     {
 
@@ -30,4 +36,42 @@ class CartController
         response()->redirect($return_url);
         die;
     }
+
+    public function deleteFromCart()
+    {
+        $data = request()->getData();
+        db()->execute("DELETE FROM cart_item WHERE good_id = ?", [$data['good_id']]);
+        db()->execute("UPDATE cart SET total = total - 1 WHERE cart.user_id = ?", [getUserId()]);
+        response()->redirect('/cart');
+    }
+
+    public function editTotalPrice()
+    {
+        $coupon = db()->findOne('coupons', request()->post('coupon'), 'value');
+        if($coupon)
+        {
+            if($coupon['created_at'] > $coupon['expires_at'] and $coupon['expires_at'] !== null and ($coupon['usages'] > 0 or $coupon['usages'] !== null))
+            {
+                session()->setFlash('error', 'coupon expired');
+                response()->redirect('/cart');
+                die;
+            }
+            if($coupon['usages'] !== null) db()->execute("UPDATE coupons SET usages = usages - 1 WHERE value = ?", [$coupon['value']]);
+            session()->setFlash('success', 'Success!');
+            return $this->cart($coupon);
+        }
+        else
+        {
+            session()->setFlash('error', 'coupon does not exist');
+            response()->redirect('/cart');
+            die;
+        }
+    }
+
+    public function checkout()
+    {
+        return view('checkout', ['title' => 'Checkout']);
+    }
+
+
 }

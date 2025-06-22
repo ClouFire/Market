@@ -12,9 +12,9 @@ class HomeController extends BaseController
         return view('home', ['title' => 'Home page']);
     }
 
-    public function dashboard()
+    public function contact()
     {
-        return view('dashboard', ['title' => 'Dashboard page']);
+        return view('contact', ['title' => 'Contact']);
     }
 
 
@@ -38,9 +38,18 @@ class HomeController extends BaseController
     {
         $products_count = db()->countAll('goods');
         $limit = PAGINATION_SETTINGS['perPage'];
-        $pagination = new Pagination($products_count);
+
+        if($category = request()->get('category'))
+        {
+            $products = db()->execute("SELECT * FROM goods JOIN good_catigories ON goods.id = good_catigories.good_id WHERE good_catigories.name = ?", [$category])->getStatement()->fetchAll();
+            $pagination = new Pagination(count($products));
+        }
+        else
+        {
+            $pagination = new Pagination($products_count);
+            $products = db()->findRange('goods', $limit, $pagination->getStart());
+        }
         $pagination->getPages();
-        $products = db()->findRange('goods', $limit, $pagination->getStart());
         return view('shop', [
             'title' => 'Shop',
             'products' => $products,
@@ -48,4 +57,31 @@ class HomeController extends BaseController
             ]);
     }
 
+    public function registerMessage()
+    {
+        $data = request()->getData();
+        if($data['c_subject'])
+        {
+            db()->insert('contacts', ['name', 'email', 'subject', 'message'],
+                [
+                    $data['c_fname'] . ' ' . $data['c_lname'],
+                    $data['c_email'],
+                    $data['c_subject'],
+                    $data['c_message'],
+                ]);
+        }
+        else
+        {
+            db()->insert('contacts', ['name', 'email', 'message'],
+                [
+                    $data['c_fname'] . ' ' . $data['c_lname'],
+                    $data['c_email'],
+                    $data['c_message'],
+                ]);
+        }
+
+        session()->setFlash('success', 'Your`s message had successfully sent to us');
+        response()->redirect(baseUrl('/contact'));
+        return db()->getInsertId();
+    }
 }

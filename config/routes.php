@@ -21,11 +21,16 @@ $app->router->post('login', [UserController::class,'auth'])->middleware(['guest'
 $app->router->get('dashboard', [HomeController::class, 'dashboard']);
 $app->router->get('users', [UserController::class, 'index']);
 $app->router->post('subscribe', [HomeController::class, 'subscribe']);
-$app->router->get('cart', [UserController::class, 'cart'])->middleware(["auth"]);
+$app->router->get('cart', [CartController::class, 'cart'])->middleware(["auth"]);
+$app->router->post('cart', [CartController::class, 'deleteFromCart'])->middleware(["auth"]);
+$app->router->post('cart/coupon', [CartController::class, 'editTotalPrice'])->middleware(["auth"]);
 $app->router->get('shop', [HomeController::class, 'shop']);
 $app->router->get('logout', [UserController::class, 'logout'])->middleware(["auth"]);
 $app->router->get("shop/product", [ProductController::class, 'product']);
 $app->router->post('shop/product', [CartController::class, 'addToCart'])->middleware(['auth']);
+$app->router->get('contact', [HomeController::class, 'contact']);
+$app->router->get('checkout', [CartController::class, 'checkout'])->middleware(['auth']);
+$app->router->post('contact', [HomeController::class, 'registerMessage']);
 
 /* $app->router->get('/post/(?P<slug>[a-z0-9-]+)/?', function() {
     return '<p>Some post</p>';

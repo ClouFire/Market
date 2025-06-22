@@ -7,6 +7,6 @@ use PHPFramework\Model;
 class Product extends Model
 {
     protected string $table = 'goods';
-    protected array $loaded = ['id', 'amount', 'price', 'raiting', 'image', 'name', 'description'];
+    protected array $loaded = ['id', 'amount', 'price', 'raiting', 'image', 'title', 'description'];
 
 }

@@ -1,8 +1,7 @@
 <?= getBreadcrumbs(['product' => [
-        'name' => $product['name'],
+        'name' => $product['title'],
         'id' => $product['id'],
 ]]); ?>
-
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -16,7 +15,7 @@
 
                 </div>
                 <div class="col-md-6">
-                    <h2 class="text-black"><?= $product['name'] ?></h2>
+                    <h2 class="text-black"><?= $product['title'] ?></h2>
                     <p><?= $product['description'] ?></p>
                     <p class="mb-4">In stock now: <?= $product['amount'] ?></p>
                     <p><strong class="text-primary h4">$<?= $product['price'] ?>.00</strong></p>
@@ -50,10 +49,14 @@
                             </div>
                         </div>
                     </div>
-                        <?php if(db()->execute("SELECT id FROM cart_item WHERE good_id = ? AND cart_id = ?", [$product['id'], getUserCartId()])->getStatement()->fetchAll()) : ?>
-                        <p><button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" disabled>Already in cart</button></p>
+                        <?php if(isAuth()) : ?>
+                            <?php if(getUserCartItem($product['id'])) : ?>
+                            <p><button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" disabled>Already in cart</button></p>
+                            <?php else : ?>
+                                <p><button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add to cart</button></p>
+                            <?php endif; ?>
                         <?php else : ?>
-                            <p><button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add to cart</button></p>
+                            <p><a type="submit" href="<?= baseUrl('/register') ?>" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add to cart</a></p>
                         <?php endif; ?>
                     </form>
 

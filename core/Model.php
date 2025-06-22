@@ -116,4 +116,25 @@ abstract class Model
             return $function($field, $value, $params, $fields);
         }, $message);
     }
+
+    public function getUserGoods()
+    {
+
+        $data = db()->execute("SELECT * FROM goods JOIN cart_item ON cart_item.good_id = goods.id JOIN cart ON cart.id = cart_item.cart_id WHERE cart.user_id = ?", [getUserId()])->getStatement()->fetchAll();
+        foreach($data as $product)
+        {
+            foreach($this->fillable as $field)
+            {
+                if(isset($product[$field]))
+                {
+                    $this->attrs[$field][] = $product[$field];
+                }
+                else
+                {
+                    $this->attrs[$field][] = '';
+                }
+            }
+        }
+
+    }
 }

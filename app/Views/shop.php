@@ -6,7 +6,7 @@
                     <div class="site-block-cover-content">
                         <h2 class="sub-title">#New Summer Collection 2019</h2>
                         <h1>Arrivals Sales</h1>
-                        <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+                        <p><button onclick="window.scrollTo({top: 665, behavior: 'smooth'})" class="btn btn-black rounded-0">Shop Now</button></p>
                     </div>
                 </div>
                 <div class="col-md-6 order-1 align-self-end">
@@ -23,24 +23,23 @@
 
                 <div class="row align">
                     <div class="col-md-12 mb-5">
-                        <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
+                        <div class="float-md-left" id="shopall"><h2 class="text-black h5">Shop All</h2></div>
                         <div class="d-flex">
                             <div class="dropdown mr-1 ml-md-auto">
                                 <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Latest
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                    <a class="dropdown-item" href="#">Men</a>
-                                    <a class="dropdown-item" href="#">Women</a>
-                                    <a class="dropdown-item" href="#">Children</a>
+                                    <a class="dropdown-item" href="<?= baseUrl('/shop') . getPropertyHref('Men'); ?>">Men</a>
+                                    <a class="dropdown-item" href="<?= baseUrl('/shop') . getPropertyHref('Women'); ?>">Women</a>
+                                    <a class="dropdown-item" href="<?= baseUrl('/shop') . getPropertyHref('Children'); ?>">Children</a>
                                 </div>
                             </div>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                    <a class="dropdown-item" href="#">Relevance</a>
-                                    <a class="dropdown-item" href="#">Name, A to Z</a>
-                                    <a class="dropdown-item" href="#">Name, Z to A</a>
+                                    <a class="dropdown-item" href="<?= baseUrl('/shop?filter=ASCName') ?>">Name, A to Z</a>
+                                    <a class="dropdown-item" href="<?= baseUrl('/shop?filter=DESCName') ?>">Name, Z to A</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Price, low to high</a>
                                     <a class="dropdown-item" href="#">Price, high to low</a>
@@ -65,28 +64,24 @@
                     <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
                     <ul class="list-unstyled mb-0">
                         <li class="mb-1"><a href="<?= baseUrl('/shop') . getPropertyHref('Men'); ?>" class="d-flex"><span>Men</span> <span class="text-black ml-auto">(<?= countItems('good_catigories', 'Men') ?>)</span></a></li>
-                        <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(<?= countItems('good_catigories', 'Women') ?>)</span></a></li>
-                        <li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(<?= countItems('good_catigories', 'Children') ?>)</span></a></li>
+                        <li class="mb-1"><a href="<?= baseUrl('/shop') . getPropertyHref('Women'); ?>" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(<?= countItems('good_catigories', 'Women') ?>)</span></a></li>
+                        <li class="mb-1"><a href="<?= baseUrl('/shop') . getPropertyHref('Children'); ?>" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(<?= countItems('good_catigories', 'Children') ?>)</span></a></li>
                     </ul>
                 </div>
 
                 <div class="border p-4 rounded mb-4">
-                    <div class="mb-4">
-                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
-                        <div id="slider-range" class="border-primary"></div>
-                        <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
-                    </div>
+
 
                     <div class="mb-4">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
                         <label for="s_sm" class="d-flex">
-                            <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Small (<?= countItems('good_attributes', 'Small') ?>)</span>
+                            <input type="checkbox" id="s_sm" class="mr-2 mt-1 size"> <span class="text-black">Small (<?= countItems('good_attributes', 'Small') ?>)</span>
                         </label>
                         <label for="s_md" class="d-flex">
-                            <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (<?= countItems('good_attributes', 'Medium') ?>)</span>
+                            <input type="checkbox" id="s_md" class="mr-2 mt-1 size"> <span class="text-black">Medium (<?= countItems('good_attributes', 'Medium') ?>)</span>
                         </label>
                         <label for="s_lg" class="d-flex">
-                            <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (<?= countItems('good_attributes', 'Large') ?>)</span>
+                            <input type="checkbox" id="s_lg" class="mr-2 mt-1 size"> <span class="text-black">Large (<?= countItems('good_attributes', 'Large') ?>)</span>
                         </label>
                     </div>
 
@@ -107,6 +102,10 @@
                     </div>
 
                 </div>
+
+                <div id="filterNotice" class="hidden">
+                    <p><a href="<?= baseUrl('/shop') ?>"><button id="applyFilters"  class="btn btn-warning" >Обновить</button></a><br>Фильтры изменены.</p>
+                </div>
             </div>
         </div>
 
@@ -115,24 +114,25 @@
 
 <div class="site-section">
     <div class="container">
+
         <div class="title-section mb-5">
             <h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2>
         </div>
         <div class="row align-items-stretch">
             <div class="col-lg-8">
                 <div class="product-item sm-height full-height bg-gray">
-                    <a href="#" class="product-category">Women <span><?= countItems('good_catigories', 'Women') ?> <?= countItems('good_catigories', 'Women') > 1 ? 'items' : 'item' ?></span></a>
+                    <button onclick="window.location.href='<?= baseUrl('/shop') . getPropertyHref('Women'); ?>'" class="product-category">Women <span><?= countItems('good_catigories', 'Women') ?> <?= countItems('good_catigories', 'Women') > 1 ? 'items' : 'item' ?></span></button>
                     <img src="<?= baseUrl('/assets/images/model_4.png')?>" alt="Image" class="img-fluid">
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="product-item sm-height bg-gray mb-4">
-                    <a href="#" class="product-category">Men <span><?= countItems('good_catigories', 'Men') ?> <?= countItems('good_catigories', 'Men') > 1 ? 'items' : 'item' ?></span></a>
+                    <button onclick="window.location.href='<?= baseUrl('/shop') . getPropertyHref('Men'); ?>'" class="product-category">Men <span><?= countItems('good_catigories', 'Men') ?> <?= countItems('good_catigories', 'Men') > 1 ? 'items' : 'item' ?></span></button>
                     <img src="<?= baseUrl('/assets/images/model_5.png')?>" alt="Image" class="img-fluid">
                 </div>
 
                 <div class="product-item sm-height bg-gray">
-                    <a href="#" class="product-category">Shoes <span><?= countItems('good_catigories', 'Shoes') ?> <?= countItems('good_catigories', 'Shoes') > 1 ? 'items' : 'item' ?></span></a>
+                    <button onclick="window.location.href='<?= baseUrl('/shop') . getPropertyHref('Shoes'); ?>'" class="product-category">Shoes <span><?= countItems('good_catigories', 'Shoes') ?> <?= countItems('good_catigories', 'Shoes') > 1 ? 'items' : 'item' ?></span></button>
                     <img src="<?= baseUrl('/assets/images/model_6.png')?>" alt="Image" class="img-fluid">
                 </div>
             </div>

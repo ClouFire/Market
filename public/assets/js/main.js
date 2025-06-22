@@ -215,3 +215,23 @@ jQuery(document).ready(function($) {
 	searchShow();
 
 });
+
+const param = document.querySelectorAll('.size');
+const btnUpdate = document.querySelector('#filterNotice')
+
+const paramPrevState = Array.from(param, (item) => item.checked)
+function checkState() {
+	 let check = false;
+	 for (let i = 0; i < param.length; i++) {
+		 if (param[i].checked !== paramPrevState[i]) {
+			 check = true;
+		 }
+	 }
+	 return check;
+}
+
+param.forEach((item) => {
+	 item.addEventListener('change', () => {
+		 checkState() ? btnUpdate.style.display = 'block' : btnUpdate.style.display = 'none';
+	 })
+})

@@ -950,3 +950,8 @@ a {
 
 .height-auto {
   height: auto !important; }
+
+.hidden
+{
+  display: none;
+}

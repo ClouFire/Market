@@ -118,9 +118,23 @@ function getBreadcrumbs(array $names = []): string
         $html .= ucfirst($breadcrumbs[$i]) . '</a> <span class="mx-2 mb-0">/</span>';
 
     }
-    $end = $breadcrumbs[count($breadcrumbs)-1];
-    if(str_contains($end, 'product?id=') and $names) $end = str_replace("product?id={$names['product']['id']}", "{$names['product']['name']}", $end);
-    $html .= '<strong class="text-black">' . ucfirst($end) . '</strong></div></div></div></div>';
+    if(request()->isGet())
+    {
+        if(request()->get('shop') === "")
+        {
+            $html .= '<a href="' . baseUrl("/shop") . '">' . 'Shop' . '</a>';
+            if(count(request()->getData()) > 1) $html .= '</a> <span class="mx-2 mb-0">/</span>';
+        }
+        if(request()->get('id'))
+        {
+            $html .= '<strong class="text-black">' . "{$names['product']['name']}" . '</strong>';
+        }
+        if(request()->get('category'))
+        {
+            $html .= '<strong class="text-black">' . request()->get('category') . '</strong>';
+        }
+        $html .= '</div></div></div></div>';
+    }
     return $html;
 }
 
@@ -140,3 +154,24 @@ function getUserCartId()
     return db()->findOne('cart', getUserId(), 'user_id')['id'];
 }
 
+function getUserCartItem($product_id)
+{
+    return db()->execute("SELECT id FROM cart_item WHERE good_id = ? AND cart_id = ?", [$product_id, getUserCartId()])->getStatement()->fetchAll();
+}
+
+function getTotalPrice($cart, $params = [])
+{
+    $total = 0;
+    {
+        for($i = 0; $i < count($cart['price']); $i++)
+        {
+            $total += $cart['price'][$i] * $cart['quantity'][$i];
+        }
+    }
+    if($params)
+    {
+            if($params['type'] == 'percent') return $total * (1 - $params['percent']);
+            if($params['type'] == 'amount') return ($total - $params['amount'] > 0) ?  $total - $params['amount'] : 0;
+    }
+    return $total;
+}
