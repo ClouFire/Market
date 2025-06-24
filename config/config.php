@@ -13,6 +13,8 @@ const PATH = '/Market';
 const ERROR_LOGS = ROOT . '/tmp/error.log';
 const WWW = ROOT . '/public';
 
+
+
 const DB_SETTINGS = [
     "name" => "market",
     "host" => "localhost",

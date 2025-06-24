@@ -32,22 +32,6 @@
                         <button onclick="window.location.href='<?= baseUrl('/shop') ?>'" class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>
                     </div>
                 </div>
-                <form action="<?= baseUrl('/cart/coupon') ?>" method="post">
-                    <?= getCsrfField(); ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <label class="text-black h4" for="coupon">Coupon</label>
-                        <p>Enter your coupon code if you have one.</p>
-                    </div>
-                    <div class="col-md-8 mb-3 mb-md-0">
-                        <input type="text" class="form-control py-3" id="coupon" name="coupon" placeholder="Coupon Code">
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
-                    </div>
-
-                </div>
-                </form>
             </div>
             <div class="col-md-6 pl-5">
                 <div class="row justify-content-end">
@@ -57,32 +41,12 @@
                                 <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <span class="text-black">Subtotal</span>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <?php if(isset($cart['price'])) : ?>
-                                <strong class="text-black">$<?= getTotalPrice($cart) ?>.00</strong>
-                                <?php else : ?>
-                                <strong class="text-black">$0</strong>
-                                <?php endif; ?>
-                            </div>
-                        </div>
                         <div class="row mb-5">
                             <div class="col-md-6">
                                 <span class="text-black">Total</span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <?php if($params) : ?>
-                                <strong class="text-black">$<?= getTotalPrice($cart, $params) ?>.00</strong>
-                                <?php else : ?>
-                                <?php if(isset($cart['price'])) : ?>
                                 <strong class="text-black">$<?= getTotalPrice($cart) ?>.00</strong>
-                                <?php else : ?>
-                                <strong class="text-black">$0</strong>
-                                <?php endif; ?>
-                                <?php endif; ?>
                             </div>
                         </div>
 

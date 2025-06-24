@@ -235,3 +235,15 @@ param.forEach((item) => {
 		 checkState() ? btnUpdate.style.display = 'block' : btnUpdate.style.display = 'none';
 	 })
 })
+
+$(document).ready(function()
+{
+	 let currentUri = window.location.pathname;
+	 $('.site-menu li a').each(function(){
+		 let href = $(this).attr('href');
+		 if(currentUri === href)
+		 {
+			 $(this).parent().addClass('active');
+		 }
+	 })
+});

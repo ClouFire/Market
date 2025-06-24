@@ -104,7 +104,7 @@
                 </div>
 
                 <div id="filterNotice" class="hidden">
-                    <p><a href="<?= baseUrl('/shop') ?>"><button id="applyFilters"  class="btn btn-warning" >Обновить</button></a><br>Фильтры изменены.</p>
+                    <p><button onclick="window.location.reload()" id="applyFilters"  class="btn btn-warning" >Обновить</button><br>Фильтры изменены.</p>
                 </div>
             </div>
         </div>
@@ -121,18 +121,18 @@
         <div class="row align-items-stretch">
             <div class="col-lg-8">
                 <div class="product-item sm-height full-height bg-gray">
-                    <button onclick="window.location.href='<?= baseUrl('/shop') . getPropertyHref('Women'); ?>'" class="product-category">Women <span><?= countItems('good_catigories', 'Women') ?> <?= countItems('good_catigories', 'Women') > 1 ? 'items' : 'item' ?></span></button>
+                    <a href='<?= baseUrl('/shop') . getPropertyHref('Women'); ?>' class="product-category">Women <span><?= countItems('good_catigories', 'Women') ?> <?= countItems('good_catigories', 'Women') > 1 ? 'items' : 'item' ?></span></a>
                     <img src="<?= baseUrl('/assets/images/model_4.png')?>" alt="Image" class="img-fluid">
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="product-item sm-height bg-gray mb-4">
-                    <button onclick="window.location.href='<?= baseUrl('/shop') . getPropertyHref('Men'); ?>'" class="product-category">Men <span><?= countItems('good_catigories', 'Men') ?> <?= countItems('good_catigories', 'Men') > 1 ? 'items' : 'item' ?></span></button>
+                    <a href='<?= baseUrl('/shop') . getPropertyHref('Men'); ?>' class="product-category">Men <span><?= countItems('good_catigories', 'Men') ?> <?= countItems('good_catigories', 'Men') > 1 ? 'items' : 'item' ?></span></a>
                     <img src="<?= baseUrl('/assets/images/model_5.png')?>" alt="Image" class="img-fluid">
                 </div>
 
                 <div class="product-item sm-height bg-gray">
-                    <button onclick="window.location.href='<?= baseUrl('/shop') . getPropertyHref('Shoes'); ?>'" class="product-category">Shoes <span><?= countItems('good_catigories', 'Shoes') ?> <?= countItems('good_catigories', 'Shoes') > 1 ? 'items' : 'item' ?></span></button>
+                    <a href='<?= baseUrl('/shop') . getPropertyHref('Shoes'); ?>' class="product-category">Shoes <span><?= countItems('good_catigories', 'Shoes') ?> <?= countItems('good_catigories', 'Shoes') > 1 ? 'items' : 'item' ?></span></a>
                     <img src="<?= baseUrl('/assets/images/model_6.png')?>" alt="Image" class="img-fluid">
                 </div>
             </div>

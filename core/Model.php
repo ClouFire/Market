@@ -13,6 +13,8 @@ abstract class Model
     protected array $fillable = [];
     public array $attrs = [];
     protected array $rules = [];
+    protected array $labels = [];
+    protected array $order_loaded = [];
     protected array $errors = [];
 
     public function save(): false|string
@@ -79,7 +81,7 @@ abstract class Model
         }
     }
 
-    public function validate($data = [], $rules = [])
+    public function validate($data = [], $rules = [], $labels = [])
     {
         if(!$data)
         {
@@ -89,10 +91,15 @@ abstract class Model
         {
             $rules = $this->rules;
         }
+        if(!$labels)
+        {
+            $labels = $this->labels;
+        }
         Validator::langDir(WWW . '/lang');
         Validator::lang('en');
         $validator = new Validator($data);
         $validator->rules($rules);
+        $validator->labels($labels);
         if($validator->validate())
         {
             return true;
@@ -136,5 +143,21 @@ abstract class Model
             }
         }
 
+    }
+
+    public function loadOrderData()
+    {
+        $data = request()->getData();
+        foreach($this->order_loaded as $field)
+        {
+            if(isset($data[$field]))
+            {
+                $this->attrs[$field] = $data[$field];
+            }
+            else
+            {
+                $this->attrs[$field] = '';
+            }
+        }
     }
 }

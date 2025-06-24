@@ -141,7 +141,7 @@ function getBreadcrumbs(array $names = []): string
 function getCartTotal($user_id)
 {
     db()->execute("SELECT total FROM cart WHERE user_id = {$user_id}");
-    return(db()->getStatement()->fetchAll());
+    return(db()->getStatement()->fetchAll()[0]['total']);
 }
 
 function getUserId()
@@ -161,6 +161,7 @@ function getUserCartItem($product_id)
 
 function getTotalPrice($cart, $params = [])
 {
+    if(!isset($cart['price'])) return '0';
     $total = 0;
     {
         for($i = 0; $i < count($cart['price']); $i++)

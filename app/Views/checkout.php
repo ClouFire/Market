@@ -1,38 +1,36 @@
 <div class="site-section">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-12">
-                <div class="border p-4 rounded" role="alert">
-                    Returning customer? <a href="#">Click here</a> to login
-                </div>
-            </div>
-        </div>
+        <form method="post" action="<?= baseUrl('/checkout') ?>" id="checkoutForm">
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">Billing Details</h2>
                 <div class="p-3 p-lg-5 border">
+                        <?= getCsrfField(); ?>
+                        <?= getHiddenProps($cart); ?>
+                        <?php if($coupon) : ?>
+                        <?= '<input type="hidden" name="coupon" value="' . $params['id'] . '">' ?>
+                        <?php endif; ?>
+                        <?php if($params) : ?>
+                        <?= '<input type="hidden" name="price" value="' .  getTotalPrice($cart, $params) . '">' ?>
+                        <?php else : ?>
+                        <?= '<input type="hidden" name="price" value="' .  getTotalPrice($cart) . '">' ?>
+                        <?php endif; ?>
                     <div class="form-group">
                         <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
-                        <select id="c_country" class="form-control">
-                            <option value="1">Select a country</option>
-                            <option value="2">bangladesh</option>
-                            <option value="3">Algeria</option>
-                            <option value="4">Afghanistan</option>
-                            <option value="5">Ghana</option>
-                            <option value="6">Albania</option>
-                            <option value="7">Bahrain</option>
-                            <option value="8">Colombia</option>
-                            <option value="9">Dominican Republic</option>
+                        <select id="c_country" class="form-control <?= getValidationClass('c_country'); ?>" name="c_country">
+                            <?= getOptions(); ?>
                         </select>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_fname" name="c_fname">
+                            <input type="text" class="form-control <?= getValidationClass('c_fname'); ?>" id="c_fname" name="c_fname" value="<?= old('name'); ?>">
+                            <?= get_errors('c_fname');?>
                         </div>
                         <div class="col-md-6">
                             <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_lname" name="c_lname">
+                            <input type="text" class="form-control <?= getValidationClass('c_lname'); ?>" id="c_lname" name="c_lname" value="<?= old('name'); ?>">
+                            <?= get_errors('c_lname');?>
                         </div>
                     </div>
 
@@ -46,7 +44,8 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
+                            <input type="text" class="form-control <?= getValidationClass('c_address'); ?>" id="c_address" name="c_address" placeholder="Street address">
+                            <?= get_errors('c_address');?>
                         </div>
                     </div>
 
@@ -57,113 +56,26 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="c_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_state_country" name="c_state_country">
+                            <input type="text" class="form-control <?= getValidationClass('c_state_country'); ?>" id="c_state_country" name="c_state_country">
+                            <?= get_errors('c_state_country');?>
                         </div>
                         <div class="col-md-6">
                             <label for="c_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
+                            <input type="text" class="form-control <?= getValidationClass('c_postal_zip'); ?>" id="c_postal_zip" name="c_postal_zip">
+                            <?= get_errors('c_postal_zip');?>
                         </div>
                     </div>
 
                     <div class="form-group row mb-5">
                         <div class="col-md-6">
                             <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                            <input type="text" class="form-control <?= getValidationClass('c_email_address'); ?>" id="c_email_address" name="c_email_address">
+                            <?= get_errors('c_email_address');?>
                         </div>
                         <div class="col-md-6">
                             <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="c_create_account" class="text-black" data-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account"> Create an account?</label>
-                        <div class="collapse" id="create_an_account">
-                            <div class="py-2">
-                                <p class="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                <div class="form-group">
-                                    <label for="c_account_password" class="text-black">Account Password</label>
-                                    <input type="email" class="form-control" id="c_account_password" name="c_account_password" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="c_ship_different_address" class="text-black" data-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address"> Ship To A Different Address?</label>
-                        <div class="collapse" id="ship_different_address">
-                            <div class="py-2">
-
-                                <div class="form-group">
-                                    <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
-                                    <select id="c_diff_country" class="form-control">
-                                        <option value="1">Select a country</option>
-                                        <option value="2">bangladesh</option>
-                                        <option value="3">Algeria</option>
-                                        <option value="4">Afghanistan</option>
-                                        <option value="5">Ghana</option>
-                                        <option value="6">Albania</option>
-                                        <option value="7">Bahrain</option>
-                                        <option value="8">Colombia</option>
-                                        <option value="9">Dominican Republic</option>
-                                    </select>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_lname" name="c_diff_lname">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="c_diff_companyname" class="text-black">Company Name </label>
-                                        <input type="text" class="form-control" id="c_diff_companyname" name="c_diff_companyname">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_address" name="c_diff_address" placeholder="Street address">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_state_country" name="c_diff_state_country">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row mb-5">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_email_address" name="c_diff_email_address">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_phone" name="c_diff_phone" placeholder="Phone Number">
-                                    </div>
-                                </div>
-
-                            </div>
-
+                            <input type="text" class="form-control <?= getValidationClass('c_phone'); ?>" id="c_phone" name="c_phone" placeholder="Phone Number">
+                            <?= get_errors('c_phone');?>
                         </div>
                     </div>
 
@@ -174,25 +86,30 @@
 
                 </div>
             </div>
+            </form>
             <div class="col-md-6">
-
-                <div class="row mb-5">
-                    <div class="col-md-12">
-                        <h2 class="h3 mb-3 text-black">Coupon Code</h2>
-                        <div class="p-3 p-lg-5 border">
-
-                            <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
-                            <div class="input-group w-75">
-                                <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
-                                </div>
-                            </div>
-
+                <form action="<?= baseUrl('/checkout/coupon') ?>" method="post" id="couponForm">
+                    <?= getCsrfField(); ?>
+                    <div class="row md-5">
+                        <div class="col-md-12">
+                            <label class="text-black h4" for="coupon">Coupon</label>
+                            <p>Enter your coupon code if you have one.</p>
                         </div>
-                    </div>
-                </div>
-
+                        <div class="col-md-8 mb-3 mb-md-0">
+                            <input type="text" class="form-control py-3" id="coupon" name="coupon" placeholder="Coupon Code">
+                        </div>
+                </form>
+                <?php if(!$coupon) : ?>
+                        <div class="col-md-4">
+                            <button form="couponForm" type="submit" class="btn btn-primary btn-sm px-4">Apply Coupon</button>
+                        </div>
+                <?php else : ?>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary btn-sm px-4" disabled>Coupon already used</button>
+                        </div>
+                <?php endif; ?>
+            </div>
+            <form method="post" action="<?= baseUrl('/checkout') ?>" id="checkoutForm">
                 <div class="row mb-5">
                     <div class="col-md-12">
                         <h2 class="h3 mb-3 text-black">Your Order</h2>
@@ -203,21 +120,18 @@
                                 <th>Total</th>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                                    <td>$250.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
-                                    <td>$100.00</td>
-                                </tr>
+                                <?= getCartTitles($cart); ?>
                                 <tr>
                                     <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                    <td class="text-black">$350.00</td>
+                                    <td class="text-black">$<?= getTotalPrice($cart); ?>.00</td>
                                 </tr>
                                 <tr>
                                     <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                    <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+                                    <?php if($params) : ?>
+                                    <td class="text-black font-weight-bold"><strong>$<?= getTotalPrice($cart, $params); ?>.00</strong></td>
+                                    <?php else : ?>
+                                        <td class="text-black font-weight-bold"><strong>$<?= getTotalPrice($cart); ?>.00</strong></td>
+                                    <?php endif; ?>
                                 </tr>
                                 </tbody>
                             </table>
@@ -253,15 +167,17 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-primary btn-lg btn-block" onclick="window.location='thankyou.html'">Place Order</button>
+                                <button type="submit" form="checkoutForm" class="btn btn-primary btn-lg btn-block">Place Order</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
+            </form>
+            <?php
+            session()->remove('form_errors');
+            session()->remove('form_data');
+            ?>
         </div>
-        <!-- </form> -->
     </div>
 </div>

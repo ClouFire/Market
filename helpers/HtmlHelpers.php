@@ -90,21 +90,37 @@ function getCartRow($cart)
     return $html;
 }
 
-function getCollections()
+function getOptions()
 {
-    $html = '<div class="site-section"><div class="container"><div class="title-section mb-5"><h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2></div><div class="row align-items-stretch"><div class="col-lg-8">';
-    foreach(['Women' => 'model_4.png', 'Men' => 'model_5.png', 'Shoes' => 'model_6.png'] as $k => $v)
+    $html = '<option value="1">Select a country</option>';
+    $data = db()->findAll('countries');
+    foreach($data as $country)
     {
-        $count = countItems('good_catigories', "{$k}");
-        $word = $count > 1 ? "items" : "item";
-        $src = baseUrl("/assets/images/{$v}");
-        $html .= '<div class="col-lg-4"><div class="product-item sm-height full-height bg-gray"><button onclick="window.location.href=' . baseUrl('/shop') . getPropertyHref("{$k}") . '\'" class="product-category">' . $k . '<span>'
-            . $count . $word . '</span></button>'
-        . '<img src="' . $src . '" alt="Image" class="img-fluid">'
-        . '</div></div></div>';
+        $html .= '<option value="' . $country['name'] . '">' . $country['name'] . '</option>';
     }
-    $html .= '</div></div>';
     return $html;
 }
 
+function getCartTitles($cart)
+{
+    if(!isset($cart['title'])) return '';
+    $html = '';
+    for($i = 0; $i < count($cart['title']); $i++)
+    {
+        $html .= '<tr><td>' . $cart['title'][$i] . '<strong class="mx-2">x</strong>' . $cart['quantity'][$i] . '</td><td>$' . $cart['quantity'][$i] * $cart['price'][$i] . '.00</td></tr>';
+    }
+    return $html;
+}
+
+function getHiddenProps($cart)
+{
+    if(!isset($cart['title'])) return '';
+    $html = '';
+    for($i = 0; $i < count($cart['title']); $i++)
+    {
+        $html .= '<input type="hidden" name="props[' . $cart['good_id'][$i] . ']" value="' . $cart['quantity'][$i] . '">';
+
+    }
+    return $html;
+}
 ?>

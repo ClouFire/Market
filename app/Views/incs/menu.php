@@ -19,7 +19,7 @@
             <div class="main-nav d-none d-lg-block">
                 <nav class="site-navigation text-right text-md-center" role="navigation">
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                        <li class="active">
+                        <li>
                             <a href="<?= baseUrl('/'); ?>">Home</a>
                         </li>
                         <li>
@@ -38,7 +38,7 @@
 
                     <span class="icon-shopping-bag"></span>
                     <?php if(isAuth()) : ?>
-                    <span class="number"><?=(getCartTotal(getUserId()))[0]['total'];?></span>
+                    <span class="number"><?= getCartTotal(getUserId()); ?></span>
                     <?php endif; ?>
 <!--                    чуть выше (вместо 2) должен быть вывод числа покупок в корзине, можно через db()->countAll
                         или не отображать ничего, если count = 0

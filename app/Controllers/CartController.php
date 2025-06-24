@@ -7,11 +7,16 @@ use App\Models\Cart;
 
 class CartController
 {
+
     public function cart($params = [])
     {
         $model = new Cart();
         $model->getUserGoods();
         return view('cart', ['cart' => $model->attrs, 'title' => 'Cart', 'params' => $params]);
+    }
+    public function orderSuccess()
+    {
+        return view('orderSuccess');
     }
     public function addToCart()
     {
@@ -53,25 +58,76 @@ class CartController
             if($coupon['created_at'] > $coupon['expires_at'] and $coupon['expires_at'] !== null and ($coupon['usages'] > 0 or $coupon['usages'] !== null))
             {
                 session()->setFlash('error', 'coupon expired');
-                response()->redirect('/cart');
+                response()->redirect('/checkout');
                 die;
             }
-            if($coupon['usages'] !== null) db()->execute("UPDATE coupons SET usages = usages - 1 WHERE value = ?", [$coupon['value']]);
             session()->setFlash('success', 'Success!');
-            return $this->cart($coupon);
+            return $this->checkout($coupon, true);
         }
         else
         {
             session()->setFlash('error', 'coupon does not exist');
-            response()->redirect('/cart');
+            response()->redirect('/checkout');
             die;
         }
     }
 
-    public function checkout()
+    public function checkout($params = [], $coupon = false)
     {
-        return view('checkout', ['title' => 'Checkout']);
+        $model = new Cart();
+        $model->getUserGoods();
+        return view('checkout', ['title' => 'Checkout', 'cart' => $model->attrs, 'params' => $params, 'coupon' => $coupon]);
     }
 
-
+    public function placeOrder()
+    {
+        $model = new Cart();
+        $model->loadOrderData();
+        if(!$model->validate())
+        {
+            session()->setFlash("error", "Validation error");
+            session()->set('form_errors', $model->getErrors());
+            response()->redirect('/checkout');
+        }
+        else
+        {
+            $data = request()->getData();
+            if($data['price'] == 0 and !isset($data['props']))
+            {
+                session()->setFlash('error', 'You don\'t have any products in ur cart!');
+                response()->redirect('/checkout');
+                die;
+            }
+            $country_id = db()->execute("SELECT id FROM countries WHERE name = ?", [$data['c_country']])->getStatement()->fetchAll()[0]['id'];
+            db()->execute("INSERT INTO orders(user_id, country_id, delivery_date, company, adress, zip, phone, total, notes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [
+                getUserId(),
+                $country_id,
+                time() + 60*60*24*7,
+                $data['c_companyname'],
+                $data['c_state_country'] . '/' . $data['c_address'],
+                $data['c_postal_zip'],
+                $data['c_phone'],
+                $data['price'],
+                $data['c_order_notes'],
+            ]);
+            $order_id = db()->getInsertId();
+            if($order_id)
+            {
+                foreach($data['props'] as $id => $amount)
+                {
+                    db()->execute("INSERT INTO order_item(order_id, good_id, amount) VALUES (?, ?, ?)", [$order_id, $id, $amount]);
+                }
+                if(isset($data['coupon']))
+                {
+                    db()->execute("UPDATE coupons SET usages = usages - 1 WHERE `coupons`.`id` = ?", [$data['coupon']]);
+                }
+                $cart_id = db()->findOne('cart', getUserId(), 'user_id')['id'];
+                $cart_sum = db()->execute("SELECT * FROM cart_item WHERE cart_id = ?", [$cart_id])->getStatement()->fetchAll();
+                $cart_sum = count($cart_sum);
+                db()->execute("UPDATE cart SET total = total - {$cart_sum} WHERE id = ?", [$cart_sum]);
+                db()->execute("DELETE FROM cart_item WHERE cart_id = ?", [$cart_id]);
+            }
+            response()->redirect('/orderSuccess');
+        }
+    }
 }
