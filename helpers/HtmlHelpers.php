@@ -83,7 +83,6 @@ function getCartRow($cart)
             . '<td>$' . $cart['price'][$i] * $cart['quantity'][$i] . '.00</td>'
             . '<td><form action="' . baseUrl('/cart') .'" method="post"><button class="btn btn-primary height-auto btn-sm">X</button>'
             . getCsrfField()
-            . '<input type="hidden" name="good_id" value="' . $cart['good_id'][$i] . '">'
             . '</form></td>'
             . '</tr>';
     }
@@ -118,7 +117,7 @@ function getHiddenProps($cart)
     $html = '';
     for($i = 0; $i < count($cart['title']); $i++)
     {
-        $html .= '<input type="hidden" name="props[' . $cart['good_id'][$i] . ']" value="' . $cart['quantity'][$i] . '">';
+        $html .= '<input type="hidden" name="props[' .$cart['good_id'][$i] . ']" value="' . encrypt($cart['quantity'][$i]) . '">';
 
     }
     return $html;

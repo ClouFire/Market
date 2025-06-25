@@ -9,6 +9,7 @@
         "php": ">=8.0",
         "symfony/var-dumper": "5.4.48",
         "vlucas/valitron": "^1.4",
-        "filp/whoops": "^2.18"
+        "filp/whoops": "^2.18",
+      "ext-openssl": "*"
     }
 }

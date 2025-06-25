@@ -1,7 +1,5 @@
 <?php
-
 define("ROOT", dirname(__DIR__));
-
 const DEBUG = 1;
 const CONFIG = ROOT . '/config';
 const HELPERS = ROOT . '/helpers';
@@ -12,7 +10,7 @@ const LAYOUT = 'default';
 const PATH = '/Market';
 const ERROR_LOGS = ROOT . '/tmp/error.log';
 const WWW = ROOT . '/public';
-
+const ENCRYPTION_KEY = 'p9UYF67Gh3vdLtJm0qRSdfg==';
 
 
 const DB_SETTINGS = [

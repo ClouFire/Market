@@ -36,8 +36,8 @@
                     </div>
                         <?= getCsrfField(); ?>
                         <input type="hidden" name="return_url" value="<?= $_SERVER['REQUEST_URI'] ?>">
-                        <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-                        <input type="hidden" name="product_amount" value="<?= $product['amount'] ?>">
+                        <input type="hidden" name="product_id" value="<?= encrypt($product['id']) ?>">
+                        <input type="hidden" name="product_amount" value="<?= encrypt($product['amount']) ?>">
                     <div class="mb-5">
                         <div class="input-group mb-3" style="max-width: 120px;">
                             <div class="input-group-prepend">

@@ -26,6 +26,8 @@ class CartController
         $return_url = str_replace('/Market', '', $model->attrs['return_url']);
         $model->attrs['user_id'] = \PHPFramework\Auth::user()['id'];
         $amount = $model->attrs['product_cart_amount'];
+        $model->attrs['product_id'] = decrypt($model->attrs['product_id']);
+        $model->attrs['product_amount'] = decrypt($model->attrs['product_amount']);
         if($amount > $model->attrs['product_amount'])
         {
             session()->setFlash('error', "There only {$model->attrs['product_amount']} on stock <br> You can not add more!");

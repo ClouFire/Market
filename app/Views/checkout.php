@@ -8,12 +8,12 @@
                         <?= getCsrfField(); ?>
                         <?= getHiddenProps($cart); ?>
                         <?php if($coupon) : ?>
-                        <?= '<input type="hidden" name="coupon" value="' . $params['id'] . '">' ?>
+                        <?= '<input type="hidden" name="coupon" value="' . encrypt($params['id']) . '">' ?>
                         <?php endif; ?>
                         <?php if($params) : ?>
-                        <?= '<input type="hidden" name="price" value="' .  getTotalPrice($cart, $params) . '">' ?>
+                        <?= '<input type="hidden" name="price" value="' .  encrypt(getTotalPrice($cart, $params)) . '">' ?>
                         <?php else : ?>
-                        <?= '<input type="hidden" name="price" value="' .  getTotalPrice($cart) . '">' ?>
+                        <?= '<input type="hidden" name="price" value="' .  encrypt(getTotalPrice($cart)) . '">' ?>
                         <?php endif; ?>
                     <div class="form-group">
                         <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>

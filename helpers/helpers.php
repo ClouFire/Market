@@ -176,3 +176,22 @@ function getTotalPrice($cart, $params = [])
     }
     return $total;
 }
+
+function encrypt($value, $key = ENCRYPTION_KEY)
+{
+    $key = hash('sha256', $key, true);
+    $iv = random_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+    $cryptvalue = openssl_encrypt($value, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+    return base64_encode($iv . $cryptvalue);
+}
+
+function decrypt($encoded, $key = ENCRYPTION_KEY)
+{
+    $key = hash('sha256', $key, true);
+    $decoded = base64_decode($encoded);
+    $ivLength = openssl_cipher_iv_length('aes-256-cbc');
+    $iv = substr($decoded, 0, $ivLength);
+    $cryptvalue = substr($decoded, $ivLength);
+
+    return openssl_decrypt($cryptvalue, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+}
