@@ -32,18 +32,15 @@
                 </nav>
             </div>
             <div class="icons">
-                <a href="<?= baseUrl('/search'); ?>" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                <a href="<?= baseUrl('/liked'); ?>" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
-                <a href="<?= baseUrl('/cart'); ?>" class="icons-btn d-inline-block bag">
+
+                <a href="<?= baseUrl('/cart'); ?>" class="icons-btn d-inline-block bag" style="margin-right: 10px">
 
                     <span class="icon-shopping-bag"></span>
                     <?php if(isAuth()) : ?>
                     <span class="number"><?= getCartTotal(getUserId()); ?></span>
                     <?php endif; ?>
-<!--                    чуть выше (вместо 2) должен быть вывод числа покупок в корзине, можно через db()->countAll
-                        или не отображать ничего, если count = 0
--->
                 </a>
+
                 <?php if(!isAuth()) : ?>
                 <a href="<?= baseUrl('/register') ?>">Sign up | </a>
                 <a href="<?= baseUrl('/login') ?>">Sign in</a>
